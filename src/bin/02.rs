@@ -51,9 +51,38 @@ fn part1_single_range(begin_range: u64, end_range: u64) -> u64 {
         .fold(0u64, |acc, x| acc + x)
 }
 
-fn part1(data: Vec<(u64, u64)>) -> u64 {
+fn part1(data: &Vec<(u64, u64)>) -> u64 {
     data.into_iter()
-        .map(|(start, end)| part1_single_range(start, end))
+        .map(|(start, end)| part1_single_range(*start, *end))
+        .fold(0u64, |acc, x| acc + x)
+}
+
+fn part2_is_repeating(x: u64) -> bool {
+    let s = x.to_string();
+
+    for len in 1..=s.len() / 2 {
+        if s.len() % len != 0 {
+            continue;
+        }
+
+        let mut chunks = s.as_bytes().chunks(len);
+        let first_chunk = chunks.next().unwrap();
+        if chunks.all(|chunk| first_chunk == chunk) {
+            return true;
+        }
+    }
+    false
+}
+
+fn part2_range_sum_invalid(begin_range: u64, end_range: u64) -> u64 {
+    (begin_range..=end_range)
+        .filter(|x| part2_is_repeating(*x))
+        .fold(0u64, |acc, x| acc + x)
+}
+
+fn part2(data: &Vec<(u64, u64)>) -> u64 {
+    data.iter()
+        .map(|(start, end)| part2_range_sum_invalid(*start, *end))
         .fold(0u64, |acc, x| acc + x)
 }
 
@@ -66,7 +95,8 @@ fn double(x: u64) -> u64 {
 fn main() {
     let input = include_str!("../../inputs/02.txt");
     let data = parse_input(input);
-    println!("Part 1: {}", part1(data));
+    println!("Part 1: {}", part1(&data));
+    println!("Part 2: {}", part2(&data));
 }
 
 #[cfg(test)]
@@ -90,6 +120,41 @@ mod tests {
     fn test_example_part1() {
         let input = include_str!("../../examples/02.txt");
         let data = parse_input(input);
-        assert_eq!(part1(data), 1227775554);
+        assert_eq!(part1(&data), 1227775554);
+    }
+
+    #[test]
+    fn test_example_part2() {
+        let input = include_str!("../../examples/02.txt");
+        let data = parse_input(input);
+        assert_eq!(part2(&data), 4174379265);
+    }
+
+    #[test]
+    fn test_is_invalid_part2() {
+        assert_eq!(part2_is_repeating(12341234), true);
+        assert_eq!(part2_is_repeating(123123123), true);
+        assert_eq!(part2_is_repeating(1212121212), true);
+        assert_eq!(part2_is_repeating(1111111), true);
+
+        assert_eq!(part2_is_repeating(12312312), false);
+        assert_eq!(part2_is_repeating(11118111), false);
+        assert_eq!(part2_is_repeating(12), false);
+    }
+
+    #[test]
+    fn test_part2_range_sum_invalid() {
+        assert_eq!(part2_range_sum_invalid(11, 22), 33);
+        assert_eq!(part2_range_sum_invalid(95, 115), 99 + 111);
+
+        assert_eq!(part2_range_sum_invalid(998, 1012), 999 + 1010);
+        assert_eq!(part2_range_sum_invalid(1188511880, 1188511890), 1188511885);
+        assert_eq!(part2_range_sum_invalid(222220, 222224), 222222);
+        assert_eq!(part2_range_sum_invalid(1698522, 1698528), 0);
+        assert_eq!(part2_range_sum_invalid(446443, 446449), 446446);
+        assert_eq!(part2_range_sum_invalid(38593856, 38593862), 38593859);
+        assert_eq!(part2_range_sum_invalid(565653, 565659), 565656);
+        assert_eq!(part2_range_sum_invalid(824824821, 824824827), 824824824);
+        assert_eq!(part2_range_sum_invalid(1212121218, 2121212124), 2121212121);
     }
 }

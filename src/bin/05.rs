@@ -36,7 +36,7 @@ fn parse_input(input: &str) -> Data {
     }
 }
 
-fn part1(data: Data) -> u64 {
+fn part1(data: &Data) -> u64 {
     data.ingredients
         .iter()
         .filter(|ingredient| {
@@ -47,10 +47,26 @@ fn part1(data: Data) -> u64 {
         .count() as u64
 }
 
+fn part2(mut ranges: Vec<Range>) -> u64 {
+    let mut result = 0;
+    let mut cursor = 0;
+
+    ranges.sort_by_key(|r| r.start);
+    for range in ranges {
+        let start = cursor.max(range.start);
+        if start <= range.end {
+            result += range.end - start + 1;
+        }
+        cursor = cursor.max(range.end + 1);
+    }
+    result
+}
+
 fn main() {
     let input = include_str!("../../inputs/05.txt");
     let data = parse_input(input);
-    println!("Part 1: {}", part1(data));
+    println!("Part 1: {}", part1(&data));
+    println!("Part 2: {}", part2(data.ranges));
 }
 
 #[cfg(test)]
@@ -62,5 +78,12 @@ mod tests {
         let input = include_str!("../../examples/05.txt");
         let data = parse_input(input);
         assert_eq!(part1(data), 3);
+    }
+
+    #[test]
+    fn test_example_part2() {
+        let input = include_str!("../../examples/05.txt");
+        let data = parse_input(input);
+        assert_eq!(part2(data.ranges), 14);
     }
 }

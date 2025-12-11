@@ -74,14 +74,14 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_example_part1() {
+    fn test_example_day5_part1() {
         let input = include_str!("../../examples/05.txt");
         let data = parse_input(input);
-        assert_eq!(part1(data), 3);
+        assert_eq!(part1(&data), 3);
     }
 
     #[test]
-    fn test_example_part2() {
+    fn test_example_day5_part2() {
         let input = include_str!("../../examples/05.txt");
         let data = parse_input(input);
         assert_eq!(part2(data.ranges), 14);

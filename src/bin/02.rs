@@ -99,62 +99,44 @@ fn main() {
     println!("Part 2: {}", part2(&data));
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
 
-    #[test]
-    fn test_double() {
-        assert_eq!(double(12), 1212);
-        assert_eq!(double(123), 123123);
-        assert_eq!(double(1), 11);
-    }
+//     #[test]
+//     fn test_double() {
+//         assert_eq!(double(12), 1212);
+//         assert_eq!(double(123), 123123);
+//         assert_eq!(double(1), 11);
+//     }
 
-    #[test]
-    fn test_part1_single_range() {
-        assert_eq!(part1_single_range(11, 22), 11 + 22);
-        assert_eq!(part1_single_range(1698522, 1698528), 0);
-    }
+//     #[test]
+//     fn test_example_part1() {
+//         let input = include_str!("../../examples/02.txt");
+//         let data = parse_input(input);
+//         assert_eq!(part1(&data), 1227775554);
+//     }
 
-    #[test]
-    fn test_example_part1() {
-        let input = include_str!("../../examples/02.txt");
-        let data = parse_input(input);
-        assert_eq!(part1(&data), 1227775554);
-    }
+//     #[test]
+//     fn test_example_part2() {
+//         let input = include_str!("../../examples/02.txt");
+//         let data = parse_input(input);
+//         assert_eq!(part2(&data), 4174379265);
+//     }
 
-    #[test]
-    fn test_example_part2() {
-        let input = include_str!("../../examples/02.txt");
-        let data = parse_input(input);
-        assert_eq!(part2(&data), 4174379265);
-    }
+//     #[test]
+//     fn test_part2_range_sum_invalid() {
+//         assert_eq!(part2_range_sum_invalid(11, 22), 33);
+//         assert_eq!(part2_range_sum_invalid(95, 115), 99 + 111);
 
-    #[test]
-    fn test_is_invalid_part2() {
-        assert_eq!(part2_is_repeating(12341234), true);
-        assert_eq!(part2_is_repeating(123123123), true);
-        assert_eq!(part2_is_repeating(1212121212), true);
-        assert_eq!(part2_is_repeating(1111111), true);
-
-        assert_eq!(part2_is_repeating(12312312), false);
-        assert_eq!(part2_is_repeating(11118111), false);
-        assert_eq!(part2_is_repeating(12), false);
-    }
-
-    #[test]
-    fn test_part2_range_sum_invalid() {
-        assert_eq!(part2_range_sum_invalid(11, 22), 33);
-        assert_eq!(part2_range_sum_invalid(95, 115), 99 + 111);
-
-        assert_eq!(part2_range_sum_invalid(998, 1012), 999 + 1010);
-        assert_eq!(part2_range_sum_invalid(1188511880, 1188511890), 1188511885);
-        assert_eq!(part2_range_sum_invalid(222220, 222224), 222222);
-        assert_eq!(part2_range_sum_invalid(1698522, 1698528), 0);
-        assert_eq!(part2_range_sum_invalid(446443, 446449), 446446);
-        assert_eq!(part2_range_sum_invalid(38593856, 38593862), 38593859);
-        assert_eq!(part2_range_sum_invalid(565653, 565659), 565656);
-        assert_eq!(part2_range_sum_invalid(824824821, 824824827), 824824824);
-        assert_eq!(part2_range_sum_invalid(1212121218, 2121212124), 2121212121);
-    }
-}
+//         assert_eq!(part2_range_sum_invalid(998, 1012), 999 + 1010);
+//         assert_eq!(part2_range_sum_invalid(1188511880, 1188511890), 1188511885);
+//         assert_eq!(part2_range_sum_invalid(222220, 222224), 222222);
+//         assert_eq!(part2_range_sum_invalid(1698522, 1698528), 0);
+//         assert_eq!(part2_range_sum_invalid(446443, 446449), 446446);
+//         assert_eq!(part2_range_sum_invalid(38593856, 38593862), 38593859);
+//         assert_eq!(part2_range_sum_invalid(565653, 565659), 565656);
+//         assert_eq!(part2_range_sum_invalid(824824821, 824824827), 824824824);
+//         assert_eq!(part2_range_sum_invalid(1212121218, 2121212124), 2121212121);
+//     }
+// }

@@ -7,3 +7,4 @@ edition = "2024"
 debug = true
 
 [dependencies]
+itertools = "0.14.0"
